@@ -1,14 +1,26 @@
 const db = require('./db/connection');
-
-db.query(
-    'SELECT * FROM department',
-    function(err, results, fields){
-        console.log (results);
-        console.log (fields)
-    }
+const mysql = require('mysql2');
+const cTable = require('console.table')
 
 
-)
+const sql = 'SELECT * FROM department';
+
+    db.promise().query(sql).then(([rows, fields]) => {
+        console.table(rows)
+
+    });
+
+
+
+// db.query(
+//     'SELECT * FROM department',
+//     function(err, results, fields){
+//         console.log (results);
+       
+//     }
+
+
+// )
 
 
 // class Database {
@@ -18,8 +30,8 @@ db.query(
 //         this.db = db;
 //     }
 
-//     allDepartments(){
-//         const sql = 'SELECT * FROM department';
+    // allDepartments(){
+    //     const sql = 'SELECT * FROM department';
 //         db.query(sql, (err, rows) => {
             
 //             if (err) {
@@ -33,7 +45,6 @@ db.query(
 //         });
 //     }
 
-
 // }
 
-
+// module.exports = Database; 
