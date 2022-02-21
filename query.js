@@ -22,7 +22,7 @@ const cTable = require('console.table')
 function allDepartments(){
     const sql = `SELECT * FROM department`;
     db.promise().query(sql).then(([rows, fields]) => {
-        console.table(rows)
+        // console.table(rows)
 
     });
 }
@@ -36,7 +36,7 @@ function allRoles(){
     ON role.department_id = department.id`
 
     db.promise().query(sql).then(([rows, fields]) => {
-        console.table(rows)
+        // console.table(rows)
     })
 }
 
@@ -53,15 +53,16 @@ function allEmployees(){
     ON department.id = role.department_id`
 
     db.promise().query(sql).then(([rows, fields]) => {
-        console.table(rows)
+        // console.table(rows)
     })
 }
 
 //Add a department
-function addDepartment (department){
+function addDepartment (newDepartment){
     const sql = `INSERT INTO department (name) VALUES (name)`
+    const params = [newDepartment]
 
-    db.promise().query(sql, department);
+    db.promise().query(sql);
         console.log('Added new department')
 
 }
@@ -72,7 +73,7 @@ function addRole (role, salary, departmentID){
     const params = [role, salary, departmentID]
 
     db.promise().query(sql, params);
-    console.log('Added new role')
+    // console.log('Added new role')
 
 }
 
@@ -82,7 +83,7 @@ function addEmployee (firstName, lastName, role, managerId){
     const params = [firstName, lastName, role, managerId]
 
     db.promise().query(sql, params);
-    console.log('Added new employee')
+    // console.log('Added new employee')
 }
 
 //Update an employee role
@@ -93,7 +94,7 @@ function updateEmployeeRole(employeeID, newRole){
 
     db.promise().query(sql, params);
 
-    console.log('Updated new employee')
+    // console.log('Updated new employee')
 }
 
 allDepartments();
@@ -105,3 +106,4 @@ addEmployee();
 updateEmployeeRole();
 
 
+module.exports = allDepartments, allRoles, allEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole;
