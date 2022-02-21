@@ -58,7 +58,7 @@ class Database {
         }    
 
     //Add a role
-        addRole (role, salary, departmentRole){
+        addRole (role, salary, department){
             const sql = `INSERT INTO role (title, salary, department) VALUES (?,?,?)`;
             const params = [role, salary, department]
             db.promise().query(sql, params);
