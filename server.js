@@ -5,6 +5,15 @@ const cTable = require('console.table');
 const Choices = require('inquirer/lib/objects/choices');
 const allDepartments = require('./query');
 
+async function departmentTable(){
+    await query.allDepartments();
+}
+
+async function rolesTable(){
+    await query.allRoles();
+}
+
+
 inquirer
     .prompt([
         {
@@ -19,7 +28,10 @@ inquirer
 
         switch (answers.selection) {
             case 'View all departments':
-                allDepartments()
+                departmentTable();
                 }
 
         })
+
+// departmentTable();
+rolesTable();
