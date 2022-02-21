@@ -151,7 +151,6 @@ const updateEmployee = () => {
 
     .then(employeeRoleInput => {
             query.updateEmployeeRole(employeeRoleInput.employeelist, employeeRoleInput.employeerole);
-            inquirerPrompts()
         })
 
     })
