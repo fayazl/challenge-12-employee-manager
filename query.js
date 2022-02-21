@@ -43,33 +43,29 @@ function allEmployees(){
 
 //Add a department
 function addDepartment (){
-    const sql = 'INSERT INTO department (name) VALUES(?)'
+    const sql = `INSERT INTO department (name) VALUES (name)`
 
     db.promise().query(sql);
         console.log('Added new department')
 
 }
 
+function addRole (){
+    const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+    const params = [first_name, last_name, role, manager]
+
+    db.promise().query(sql, params);
+    console.log('Added new role')
+
+}
 
 
 allDepartments();
 allRoles();
 allEmployees();
 addDepartment();
+addRole();
 
-
-
-
-
-// db.query(
-//     'SELECT * FROM department',
-//     function(err, results, fields){
-//         console.log (results);
-       
-//     }
-
-
-// )
 
 
 // class Database {
