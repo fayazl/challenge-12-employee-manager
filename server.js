@@ -17,6 +17,70 @@ async function employeesTable(){
     await query.allEmployees();
 }
 
+const newDepartment = () => {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'departmentInput',
+                message: 'Enter a new department'
+             }
+        ])
+
+        .then(deptInput => {
+            query.addDepartment(deptInput.departmentInput)
+            inquirerPrompts()
+
+        })
+}
+
+
+// const newRole = () => {
+
+//     let department = [];
+//     departmentTable().then(dept => {
+//         department.forEach(deptName => {
+//             department.push(deptName)
+//         })
+//     });
+
+//     inquirer
+//         .prompt([
+//             {
+//                 type: 'input',
+//                 name: 'role',
+//                 message: 'Enter a new role'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'salary',
+//                 message: 'Enter the new roles salary'
+//             },
+//             {
+//                 type: 'choices',
+//                 name: 'departmentlist',
+//                 message: 'Select the department',
+//                 choices: departmentTable.name
+//             },
+
+
+//         ])
+
+//         .then(answers => {
+//             let deptID = department.find(x => {
+//                 if (x.name === answers.dept){
+//                     return x.id
+//                 }
+
+//             }).id
+
+//             query.addRole(answers.role, answers.salary, departmentID);
+//         })
+
+    
+// }
+
+
 
 const inquirerPrompts = function() {
     inquirer
@@ -33,9 +97,9 @@ const inquirerPrompts = function() {
 
             switch (answers.selection) {
                     case 'View all departments':
-                    departmentTable().then(
-                    inquirerPrompts()
-                    );
+                        departmentTable().then(
+                        inquirerPrompts()
+                        );
 
                 break;
                     
@@ -50,6 +114,17 @@ const inquirerPrompts = function() {
                     case 'View all employees':
                         employeesTable();
                         inquirerPrompts()
+
+                break;
+                    
+                    case 'Add a department':
+                            newDepartment();
+
+                break;
+                    
+                    // case 'Add a role':
+                    //     newRole();            
+
                     }
 
             });

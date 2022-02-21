@@ -51,11 +51,10 @@ class Database {
         }
         
     //Add a department
-        addDepartment (newDepartment){
-            const sql = `INSERT INTO department (name) VALUES (name)`
-            const params = [newDepartment]
-            db.promise().query(sql);
-                console.log('Added new department')
+        addDepartment (departmentInput){
+            const sql = `INSERT INTO department (name) VALUES (?)`
+            db.promise().query(sql, departmentInput);
+                console.log(`Added new department ${departmentInput}`)
 
         }    
 
@@ -89,4 +88,4 @@ class Database {
 
 
 
-module.exports = new Database
+module.exports = new Database (db)
