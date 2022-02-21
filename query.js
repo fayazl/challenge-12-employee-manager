@@ -2,6 +2,22 @@ const db = require('./db/connection');
 const mysql = require('mysql2');
 const cTable = require('console.table')
 
+
+// //Constructor function
+
+// class Database {
+
+//     constructor (db) {
+//         this.db = db;
+//     }
+
+
+
+
+
+// }
+
+
 //View all departments
 function allDepartments(){
     const sql = `SELECT * FROM department`;
@@ -50,14 +66,25 @@ function addDepartment (){
 
 }
 
-function addRole (){
+//Add a role
+function addRole (role, salary, departmentID){
     const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
-    const params = [first_name, last_name, role, manager]
+    const params = [role, salary, departmentID]
 
     db.promise().query(sql, params);
     console.log('Added new role')
 
 }
+
+//Add an employee
+function addEmployee (firstName, lastName, role, managerId){
+    const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)'
+    const params = [firstName, lastName, role, managerId]
+
+    db.promise().query(sql, params);
+    console.log('Added new employee')
+}
+
 
 
 allDepartments();
@@ -65,31 +92,6 @@ allRoles();
 allEmployees();
 addDepartment();
 addRole();
+addEmployee();
 
 
-
-// class Database {
-
-//     //Constructor function
-//     constructor (db) {
-//         this.db = db;
-//     }
-
-    // allDepartments(){
-    //     const sql = 'SELECT * FROM department';
-//         db.query(sql, (err, rows) => {
-            
-//             if (err) {
-//                 res.status(500).json({error: err.message});
-//                 return;
-//             }
-//             res.json({
-//                 message: 'success',
-//                 data: rows
-//             });
-//         });
-//     }
-
-// }
-
-// module.exports = Database;
