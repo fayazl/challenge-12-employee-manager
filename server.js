@@ -68,10 +68,58 @@ const newRole = () => {
         })
 
     });
+}
+
+const newEmployee = () => {
+    query.getRoles ()
+    .then(([rows, fields]) => {
+        let roles = rows;
+            const rolesChoices = roles.map(({id, title}) => ({name: title, value: id }));
+     
+        query.getManager()
+            .then(([rows, fields]) => {
+                let manager = rows;
+                    const managerChoices = manager.map(({id, manager}) => ({name: manager, value: id}));
+                    inquirer
+                        .prompt([
+                            {
+                                type: 'input',
+                                name: 'firstname',
+                                message: 'Enter the first name'
+                            },
+                            {
+                                type: 'input',
+                                name: 'last name',
+                                message: 'Enter the last name'
+                            },
+                            {
+                                type: 'list',
+                                name: 'role_id',
+                                message: 'Select role',
+                                choices: rolesChoices
+                            },
+                            {
+                                type: 'list',
+                                name: 'manager_id',
+                                message: 'Select Manager',
+                                choices: managerChoices
+                            },
+                        ])
+                    .then(employeeInput => {
+
+                        query.addEmployee(employeeInput.firstname, employeeInput.lastname, employeeInput.role_id, employeeInput.manager_id);
+                        inquirerPrompts()
+                    })
+
+            })
+})
 
 
 
-    }    
+}
+
+
+
 
 
 const inquirerPrompts = function() {
@@ -115,7 +163,12 @@ const inquirerPrompts = function() {
                 break;
                     
                     case 'Add a role':
-                        newRole();            
+                        newRole();   
+                        
+                break;
+                    
+                    case 'Add an employee':
+                        newEmployee();  
 
                     }
 

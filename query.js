@@ -41,6 +41,16 @@ class Database {
             })
         }
 
+
+    //View all roles
+        getRoles(){
+            const sql = `SELECT role.id, role.title
+            FROM role`
+
+            return db.promise().query(sql)
+        }    
+
+
     //View all employees
         allEmployees(){
             const sql = `SELECT employee.id, employee.first_name AS 'first name', employee.last_name AS 'last name', 
@@ -58,6 +68,21 @@ class Database {
                 console.table(rows)
             })
         }
+
+       getManager(){
+        const sql = `SELECT employee.id, CONCAT (employee.first_name, ' ',  employee.last_name) AS manager
+        FROM employee`
+
+        return db.promise().query(sql)
+       }
+
+       getEmployee(){
+           const sql = `SELECT employee.id, CONCAT (employee.first_name, ' ',  employee.last_name) AS employees
+           FROM employee`
+
+           return db.promise().query(sql) 
+           
+       }
         
     //Add a department
         addDepartment (departmentInput){
@@ -77,9 +102,9 @@ class Database {
         }
 
     //Add an employee
-        addEmployee (firstName, lastName, role, managerId){
+        addEmployee (firstName, lastName, role_id, manager_id){
             const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)'
-            const params = [firstName, lastName, role, managerId]
+            const params = [firstName, lastName, role_id, manager_id]
             db.promise().query(sql, params);
             console.log('Added new employee')
         }
