@@ -5,40 +5,41 @@ const cTable = require('console.table')
 
 //Constructor function
 
-// class Database {
+class Database {
 
-//     constructor (db) {
-//         this.db = db;
-//     }
+    constructor (db) {
+        this.db = db;
+    }
+
+        //View all departments
+        allDepartments(){
+            const sql = `SELECT * FROM department`;
+            db.promise().query(sql).then(([rows, fields]) => {
+                console.table(rows)
+
+            });
+        }
+
+    //View all roles
+        allRoles(){
+            const sql = `SELECT role.id, role.title AS 'role', department.name AS 'department', salary, department.id
+            AS department_id
+            FROM role
+            LEFT JOIN department
+            ON role.department_id = department.id`
+        
+            db.promise().query(sql).then(([rows, fields]) => {
+                // console.table(rows)
+            })
+        }
 
 
-
-
-
-// }
-
-
-//View all departments
-function allDepartments(){
-    const sql = `SELECT * FROM department`;
-    db.promise().query(sql).then(([rows, fields]) => {
-        // console.table(rows)
-
-    });
 }
 
-//View all roles
-function allRoles(){
-    const sql = `SELECT role.id, role.title AS 'role', department.name AS 'department', salary, department.id
-    AS department_id
-    FROM role
-    LEFT JOIN department
-    ON role.department_id = department.id`
 
-    db.promise().query(sql).then(([rows, fields]) => {
-        // console.table(rows)
-    })
-}
+
+
+
 
 //View all employees
 function allEmployees(){
@@ -97,8 +98,6 @@ function updateEmployeeRole(employeeID, newRole){
     // console.log('Updated new employee')
 }
 
-allDepartments();
-allRoles();
 allEmployees();
 addDepartment();
 addRole();
@@ -106,4 +105,4 @@ addEmployee();
 updateEmployeeRole();
 
 
-module.exports = allDepartments, allRoles, allEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole;
+module.exports = allEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole;
