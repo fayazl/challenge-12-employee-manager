@@ -61,11 +61,7 @@ const newRole = () => {
             inquirerPrompts()
         })
 
-    
-}
-
-
-
+    }    
 
 
 const inquirerPrompts = function() {
