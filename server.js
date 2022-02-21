@@ -124,11 +124,13 @@ const updateEmployee = () => {
     .then(([rows, fields]) => {
             let employee = rows;
                 const employeeChoices = employee.map(({id, employees}) => ({name: employees, value: id }));
+
         
     query.getRoles()
     .then(([rows, fields]) => {
         let role = rows;
         const updateRoleChoices = role.map(({id, title}) => ({name: title, value: id}));
+
 
 
         inquirer
