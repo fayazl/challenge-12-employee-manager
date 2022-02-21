@@ -58,10 +58,10 @@ function allEmployees(){
 }
 
 //Add a department
-function addDepartment (){
-    const sql = `INSERT INTO department (name) VALUES (name)`
+function addDepartment (department){
+    const sql = `INSERT INTO department (name) VALUES (?)`
 
-    db.promise().query(sql);
+    db.promise().query(sql, department);
         console.log('Added new department')
 
 }
