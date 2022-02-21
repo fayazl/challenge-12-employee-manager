@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const cTable = require('console.table')
 
 
-// //Constructor function
+//Constructor function
 
 // class Database {
 
@@ -59,7 +59,7 @@ function allEmployees(){
 
 //Add a department
 function addDepartment (department){
-    const sql = `INSERT INTO department (name) VALUES (?)`
+    const sql = `INSERT INTO department (name) VALUES (name)`
 
     db.promise().query(sql, department);
         console.log('Added new department')
@@ -85,7 +85,16 @@ function addEmployee (firstName, lastName, role, managerId){
     console.log('Added new employee')
 }
 
+//Update an employee role
 
+function updateEmployeeRole(employeeID, newRole){
+    const sql = `UPDATE employee SET role_id = ? WHERE id = ?`
+    params = [employeeID, newRole]
+
+    db.promise().query(sql, params);
+
+    console.log('Updated new employee')
+}
 
 allDepartments();
 allRoles();
@@ -93,5 +102,6 @@ allEmployees();
 addDepartment();
 addRole();
 addEmployee();
+updateEmployeeRole();
 
 
