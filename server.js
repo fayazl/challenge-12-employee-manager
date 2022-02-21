@@ -89,7 +89,7 @@ const newEmployee = () => {
                             },
                             {
                                 type: 'input',
-                                name: 'last name',
+                                name: 'lastname',
                                 message: 'Enter the last name'
                             },
                             {
@@ -112,15 +112,51 @@ const newEmployee = () => {
                     })
 
             })
-})
+});
 
 
 
 }
 
 
+const updateEmployee = () => {
+    query.getEmployee ()
+    .then(([rows, fields]) => {
+            let employee = rows;
+                const employeeChoices = employee.map(({id, employees}) => ({name: employees, value: id }));
+        
+    query.getRoles()
+    .then(([rows, fields]) => {
+        let role = rows;
+        const updateRoleChoices = role.map(({id, title}) => ({name: title, value: id}));
 
 
+        inquirer
+        .prompt([
+            {
+                type: 'list',
+                name: 'employeelist',
+                message: 'Select employee to update',
+                choices: employeeChoices
+            },
+            {
+                type: 'list',
+                name: 'employeerole',
+                message: 'Select new role',
+                choices: updateRoleChoices
+            },
+        ])
+
+    .then(employeeRoleInput => {
+            query.updateEmployeeRole(employeeRoleInput.employeelist, employeeRoleInput.employeerole);
+        })
+
+    })
+})
+
+
+
+}
 
 const inquirerPrompts = function() {
     inquirer
@@ -170,8 +206,16 @@ const inquirerPrompts = function() {
                     case 'Add an employee':
                         newEmployee();  
 
+                break;
+    
+                    case 'Update an employee role':
+                        updateEmployee();
+                        inquirerPrompts();
+                
                     }
 
+
+ 
             });
     
 }
