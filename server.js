@@ -149,6 +149,7 @@ const updateEmployee = () => {
 
     .then(employeeRoleInput => {
             query.updateEmployeeRole(employeeRoleInput.employeelist, employeeRoleInput.employeerole);
+            inquirerPrompts()
         })
 
     })
@@ -194,7 +195,7 @@ const inquirerPrompts = function() {
                 break;
                     
                     case 'Add a department':
-                            newDepartment();
+                        newDepartment();
 
                 break;
                     
@@ -210,13 +211,14 @@ const inquirerPrompts = function() {
     
                     case 'Update an employee role':
                         updateEmployee();
-                        inquirerPrompts();
-                
-                    }
+    
+                    
+                }
 
 
- 
             });
+
+
     
 }
 
