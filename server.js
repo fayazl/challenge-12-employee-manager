@@ -14,40 +14,46 @@ async function rolesTable(){
 }
 
 async function employeesTable(){
-    await query.allRoles();
+    await query.allEmployees();
 }
 
 
+const inquirerPrompts = function() {
+    inquirer
+        .prompt([
+            {
+                type: 'list',
+                name: 'selection',
+                message: 'What would you like to do?',
+                choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role' ]
+            }
+        ])
 
-inquirer
-    .prompt([
-        {
-            type: 'list',
-            name: 'selection',
-            message: 'What would you like to do?',
-            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role' ]
-        }
-    ])
+        .then(answers => {
 
-    .then(answers => {
+            switch (answers.selection) {
+                    case 'View all departments':
+                    departmentTable().then(
+                    inquirerPrompts()
+                    );
 
-        switch (answers.selection) {
-                case 'View all departments':
-                departmentTable();
-
-            break;
-                
-                case 'View all roles':
-                    rolesTable();
+                break;
+                    
+                    case 'View all roles':
+                        rolesTable().then(
+                        inquirerPrompts()
+                        );
 
 
-            break;
-                
-                case 'View all employees':
-                    employeesTable();
-                }
+                break;
+                    
+                    case 'View all employees':
+                        employeesTable();
+                        inquirerPrompts()
+                    }
 
-        });
-      
+            });
+    
+}
 
-// departmentTable();
+inquirerPrompts();
