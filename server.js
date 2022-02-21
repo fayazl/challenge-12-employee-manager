@@ -13,6 +13,11 @@ async function rolesTable(){
     await query.allRoles();
 }
 
+async function employeesTable(){
+    await query.allRoles();
+}
+
+
 
 inquirer
     .prompt([
@@ -34,8 +39,13 @@ inquirer
                 
                 case 'View all roles':
                     rolesTable();
-                }
 
+
+            break;
+                
+                case 'View all employees':
+                    employeesTable();
+                }
 
         });
       
