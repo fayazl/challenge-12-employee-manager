@@ -5,21 +5,21 @@ const cTable = require('console.table');
 const Choices = require('inquirer/lib/objects/choices');
 const allDepartments = require('./query');
 
-// inquirer
-//     .prompt([
-//         {
-//             type: 'list',
-//             name: 'selection',
-//             message: 'What would you like to do?',
-//             choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role' ]
-//         }
-//     ])
+inquirer
+    .prompt([
+        {
+            type: 'list',
+            name: 'selection',
+            message: 'What would you like to do?',
+            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role' ]
+        }
+    ])
 
-//     .then(answers => {
+    .then(answers => {
 
-//         switch (answers.selection) {
-//             case 'View all departments':
-//                 allDepartments()
-//                 }
+        switch (answers.selection) {
+            case 'View all departments':
+                allDepartments()
+                }
 
-//         })
+        })

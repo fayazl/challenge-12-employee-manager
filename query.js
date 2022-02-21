@@ -11,7 +11,7 @@ class Database {
         this.db = db;
     }
 
-        //View all departments
+    //View all departments
         allDepartments(){
             const sql = `SELECT * FROM department`;
             db.promise().query(sql).then(([rows, fields]) => {
@@ -33,76 +33,60 @@ class Database {
             })
         }
 
+    //View all employees
+        allEmployees(){
+            const sql = `SELECT employee.id, employee.first_name AS 'first name', employee.last_name AS 'last name', 
+            role.title AS 'title', role.salary, department.name AS 'department', 
+            (SELECT m.first_name FROM employee m WHERE m.id = employee.manager_id) 
+            AS 'manager'
+            FROM employee
+            LEFT JOIN role 
+            ON role.id = employee.role_id
+            LEFT JOIN department
+            ON department.id = role.department_id`
+
+            db.promise().query(sql).then(([rows, fields]) => {
+                // console.table(rows)
+            })
+        }
+        
+    //Add a department
+        addDepartment (newDepartment){
+            const sql = `INSERT INTO department (name) VALUES (name)`
+            const params = [newDepartment]
+            db.promise().query(sql);
+                console.log('Added new department')
+
+        }    
+
+    //Add a role
+        addRole (role, salary, departmentID){
+            const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+            const params = [role, salary, departmentID]
+            db.promise().query(sql, params);
+            console.log('Added new role')
+
+        }
+
+    //Add an employee
+        addEmployee (firstName, lastName, role, managerId){
+            const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)'
+            const params = [firstName, lastName, role, managerId]
+            db.promise().query(sql, params);
+            console.log('Added new employee')
+        }
+
+    //Update an employee role
+
+        updateEmployeeRole(employeeID, newRole){
+            const sql = `UPDATE employee SET role_id = ? WHERE id = ?`
+            params = [employeeID, newRole]
+            db.promise().query(sql, params);
+            console.log('Updated new employee')
+            }    
 
 }
 
 
 
-
-
-
-//View all employees
-function allEmployees(){
-    const sql = `SELECT employee.id, employee.first_name AS 'first name', employee.last_name AS 'last name', 
-    role.title AS 'title', role.salary, department.name AS 'department', 
-    (SELECT m.first_name FROM employee m WHERE m.id = employee.manager_id) 
-    AS 'manager'
-    FROM employee
-    LEFT JOIN role 
-    ON role.id = employee.role_id
-    LEFT JOIN department
-    ON department.id = role.department_id`
-
-    db.promise().query(sql).then(([rows, fields]) => {
-        // console.table(rows)
-    })
-}
-
-//Add a department
-function addDepartment (newDepartment){
-    const sql = `INSERT INTO department (name) VALUES (name)`
-    const params = [newDepartment]
-
-    db.promise().query(sql);
-        console.log('Added new department')
-
-}
-
-//Add a role
-function addRole (role, salary, departmentID){
-    const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
-    const params = [role, salary, departmentID]
-
-    db.promise().query(sql, params);
-    // console.log('Added new role')
-
-}
-
-//Add an employee
-function addEmployee (firstName, lastName, role, managerId){
-    const sql = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)'
-    const params = [firstName, lastName, role, managerId]
-
-    db.promise().query(sql, params);
-    // console.log('Added new employee')
-}
-
-//Update an employee role
-
-function updateEmployeeRole(employeeID, newRole){
-    const sql = `UPDATE employee SET role_id = ? WHERE id = ?`
-    params = [employeeID, newRole]
-
-    db.promise().query(sql, params);
-
-    // console.log('Updated new employee')
-}
-
-allEmployees();
-addDepartment();
-addRole();
-addEmployee();
-updateEmployeeRole();
-
-
-module.exports = allEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole;
+module.exports = Database
