@@ -2,6 +2,7 @@ const db = require('./db/connection');
 const mysql = require('mysql2');
 const cTable = require('console.table')
 
+//View all departments
 function allDepartments(){
     const sql = `SELECT * FROM department`;
     db.promise().query(sql).then(([rows, fields]) => {
@@ -10,6 +11,7 @@ function allDepartments(){
     });
 }
 
+//View all roles
 function allRoles(){
     const sql = `SELECT role.id, role.title AS 'role', department.name AS 'department', salary, department.id
     AS department_id
@@ -22,6 +24,7 @@ function allRoles(){
     })
 }
 
+//View all employees
 function allEmployees(){
     const sql = `SELECT employee.id, employee.first_name AS 'first name', employee.last_name AS 'last name', 
     role.title AS 'title', role.salary, department.name AS 'department', 
@@ -38,13 +41,21 @@ function allEmployees(){
     })
 }
 
-// function addDepartment
+//Add a department
+function addDepartment (){
+    const sql = 'INSERT INTO department (name) VALUES(?)'
+
+    db.promise().query(sql);
+        console.log('Added new department')
+
+}
 
 
 
 allDepartments();
-allRoles()
-allEmployees()
+allRoles();
+allEmployees();
+addDepartment();
 
 
 
