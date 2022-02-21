@@ -37,7 +37,12 @@ const newDepartment = () => {
 
 const newRole = () => {
 
-    inquirer
+    query.getDepartments ()
+    .then(([rows, fields]) => {
+        let departments = rows;
+        const choices = departments.map(({id, name}) => ({ name: name, value: id}));
+
+        inquirer
         .prompt([
             {
                 type: 'input',
@@ -50,16 +55,21 @@ const newRole = () => {
                 message: 'Enter the new roles salary'
             },
             {
-                type: 'input',
-                name: 'department',
+                type: 'list',
+                name: 'department_id',
                 message: 'Which department does this role belong to?',
+                choices: choices
             },
         ])
         .then(roleInput => {
 
-            query.addRole(roleInput.role, roleInput.salary, roleInput.department);
+            query.addRole(roleInput.role, roleInput.salary, roleInput.department_id);
             inquirerPrompts()
         })
+
+    });
+
+
 
     }    
 

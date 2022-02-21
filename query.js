@@ -15,10 +15,18 @@ class Database {
         allDepartments(){
             const sql = `SELECT * FROM department`;
             db.promise().query(sql).then(([rows, fields]) => {
+                console.log()
                 console.table(rows)
 
             });
         }
+
+    //View all departments
+    getDepartments(){
+        const sql = `SELECT * FROM department`;
+        return db.promise().query(sql)
+    }
+
 
     //View all roles
         allRoles(){
@@ -28,6 +36,7 @@ class Database {
             ON role.department_id = department.id`
         
             db.promise().query(sql).then(([rows, fields]) => {
+                console.log()
                 console.table(rows)
             })
         }
@@ -45,6 +54,7 @@ class Database {
             ON department.id = role.department_id`
 
             db.promise().query(sql).then(([rows, fields]) => {
+                console.log()
                 console.table(rows)
             })
         }
@@ -58,9 +68,9 @@ class Database {
         }    
 
     //Add a role
-        addRole (role, salary, department){
-            const sql = `INSERT INTO role (title, salary, department) VALUES (?,?,?)`;
-            const params = [role, salary, department]
+        addRole (role, salary, department_id){
+            const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+            const params = [role, salary, department_id]
             db.promise().query(sql, params);
             console.log('Added new role')
 
