@@ -27,11 +27,17 @@ inquirer
     .then(answers => {
 
         switch (answers.selection) {
-            case 'View all departments':
+                case 'View all departments':
                 departmentTable();
+
+            break;
+                
+                case 'View all roles':
+                    rolesTable();
                 }
 
-        })
+
+        });
+      
 
 // departmentTable();
-rolesTable();

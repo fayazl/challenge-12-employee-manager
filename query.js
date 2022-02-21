@@ -29,7 +29,7 @@ class Database {
             ON role.department_id = department.id`
         
             db.promise().query(sql).then(([rows, fields]) => {
-                // console.table(rows)
+                console.table(rows)
             })
         }
 
