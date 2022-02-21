@@ -6,7 +6,7 @@ const Choices = require('inquirer/lib/objects/choices');
 const allDepartments = require('./query');
 
 async function departmentTable(){
-    await query.allDepartments();
+    await query.allDepartments()
 }
 
 async function rolesTable(){
@@ -35,50 +35,36 @@ const newDepartment = () => {
 }
 
 
-// const newRole = () => {
+const newRole = () => {
 
-//     let department = [];
-//     departmentTable().then(dept => {
-//         department.forEach(deptName => {
-//             department.push(deptName)
-//         })
-//     });
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'role',
+                message: 'Enter a new role'
+            },
+            {
+                type: 'input',
+                name: 'salary',
+                message: 'Enter the new roles salary'
+            },
+            {
+                type: 'input',
+                name: 'department',
+                message: 'Which department does this role belong to?',
+            },
+        ])
+        .then(roleInput => {
 
-//     inquirer
-//         .prompt([
-//             {
-//                 type: 'input',
-//                 name: 'role',
-//                 message: 'Enter a new role'
-//             },
-//             {
-//                 type: 'input',
-//                 name: 'salary',
-//                 message: 'Enter the new roles salary'
-//             },
-//             {
-//                 type: 'choices',
-//                 name: 'departmentlist',
-//                 message: 'Select the department',
-//                 choices: departmentTable.name
-//             },
-
-
-//         ])
-
-//         .then(answers => {
-//             let deptID = department.find(x => {
-//                 if (x.name === answers.dept){
-//                     return x.id
-//                 }
-
-//             }).id
-
-//             query.addRole(answers.role, answers.salary, departmentID);
-//         })
+            query.addRole(roleInput.role, roleInput.salary, roleInput.department);
+            inquirerPrompts()
+        })
 
     
-// }
+}
+
+
 
 
 
@@ -122,8 +108,8 @@ const inquirerPrompts = function() {
 
                 break;
                     
-                    // case 'Add a role':
-                    //     newRole();            
+                    case 'Add a role':
+                        newRole();            
 
                     }
 
@@ -131,4 +117,4 @@ const inquirerPrompts = function() {
     
 }
 
-inquirerPrompts();
+inquirerPrompts()

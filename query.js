@@ -22,8 +22,7 @@ class Database {
 
     //View all roles
         allRoles(){
-            const sql = `SELECT role.id, role.title AS 'role', department.name AS 'department', salary, department.id
-            AS department_id
+            const sql = `SELECT role.id, role.title AS 'role', department.name AS 'department', salary
             FROM role
             LEFT JOIN department
             ON role.department_id = department.id`
@@ -46,7 +45,7 @@ class Database {
             ON department.id = role.department_id`
 
             db.promise().query(sql).then(([rows, fields]) => {
-                // console.table(rows)
+                console.table(rows)
             })
         }
         
@@ -59,9 +58,9 @@ class Database {
         }    
 
     //Add a role
-        addRole (role, salary, departmentID){
-            const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
-            const params = [role, salary, departmentID]
+        addRole (role, salary, department){
+            const sql = `INSERT INTO role (title, salary, department) VALUES (?,?,?)`;
+            const params = [role, salary, department]
             db.promise().query(sql, params);
             console.log('Added new role')
 
